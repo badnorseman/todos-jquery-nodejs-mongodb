@@ -1,0 +1,19 @@
+{
+  "name": "todos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.15.1",
+    "express": "4.13.4",
+    "mongoose": "4.4.15"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "chai-http": "2.0.1",
+    "mocha": "2.4.5"
+  }
+}

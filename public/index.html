@@ -1,0 +1,242 @@
+<html>
+<head>
+  <title>To-dos</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-size: 2em;
+    color: #1E2835;
+    background-color: #F8F8F8;
+  }
+
+  .light {
+    color: #C7CACD;
+  }
+
+  a, a:active, a:hover, a:visited {
+    color: #F37A7B;
+  }
+
+  div#main {
+    display: flex;
+    align-todos: center;
+    flex-direction: column;
+  }
+
+  input {
+    width: 400px;
+    border: 0;
+    background-color: #F8F8F8;
+  }
+
+  div>input {
+    width: 400px;
+  }
+
+  li input {
+    width: 380;
+  }
+
+  div>input, li {
+    border: 2px solid #C7CACD;
+    padding: 10px;
+  }
+
+  form, ul {
+    margin: 0;
+  }
+
+  ul {
+    padding-left: 0;
+  }
+
+  li {
+    width: 400px;
+    list-style-type: none;
+  }
+
+  div.delete {
+    float: right;
+  }
+</style>
+<script>
+  var Todos = function() {
+    this.todos = []
+    this.todoList = $('#todo-list')
+    this.todoListTemplate = Handlebars.compile($("#todo-list-template").html())
+
+    this.input = $('#todo-input')
+    this.input.keydown(this.onAddInputKeydown.bind(this))
+
+    this.main = $('#main')
+    this.main.on('dblclick', 'li',
+                 this.onEditTodoClicked.bind(this))
+    this.main.on('keydown', 'li input',
+                 this.onEditInputKeydown.bind(this))
+    this.main.on('focusout', 'li input',
+                 this.onEditFocusOut.bind(this))
+    this.main.on('click', 'li .delete-todo',
+                 this.onDeleteTodoClicked.bind(this))
+
+    this.getTodos()
+  }
+
+  Todos.prototype.onAddInputKeydown = function(event) {
+    if (event.which != 13) {
+      return
+    }
+
+    var input = $(event.target)
+    var value = input.val().trim()
+    if (value != '') {
+      this.addTodo(value)
+    }
+    input.val('')
+    event.preventDefault()
+  }
+
+  Todos.prototype.onEditTodoClicked = function(event) {
+    var todo = $(event.target).parents('li')
+    var display = todo.children('.display')
+    var input = todo.children('input')
+    var name = display.children('.name')
+    input.show()
+    input.focus()
+    input.val(name.text())
+    display.hide()
+    event.preventDefault()
+  }
+
+  Todos.prototype.onEditInputKeydown = function(event) {
+    if (event.which != 13) {
+      return
+    }
+    var input = $(event.target)
+    input.blur()
+  }
+
+  Todos.prototype.onEditFocusOut = function(event) {
+    var todo = $(event.target).parents('li')
+    var id = todo.data('id')
+    var display = todo.children('.display')
+    var input = todo.children('input')
+    var name = display.children('.name')
+    var value = input.val().trim()
+
+    if (value != '') {
+      this.editTodo(id, value)
+      name.text(value)
+    }
+
+    input.hide()
+    display.show()
+    event.preventDefault()
+  }
+
+  Todos.prototype.onDeleteTodoClicked = function(event) {
+    var id = $(event.target).parents('li').data('id')
+    this.deleteTodo(id)
+  }
+
+  Todos.prototype.getTodos = function() {
+    var ajax = $.ajax('/todos', {
+      type: 'GET',
+      dataType: 'json'
+    })
+    ajax.done(this.onGetTodosDone.bind(this));
+  }
+
+  Todos.prototype.addTodo = function(name) {
+    var todo = { 'name': name }
+    var ajax = $.ajax('/todos', {
+      type: 'POST',
+      data: JSON.stringify(todo),
+      dataType: 'json',
+      contentType: 'application/json'
+    })
+    ajax.done(this.getTodos.bind(this))
+  }
+
+  Todos.prototype.deleteTodo = function(id) {
+    var ajax = $.ajax('/todos/' + id, {
+      type: 'DELETE',
+      dataType: 'json'
+    })
+    ajax.done(this.getTodos.bind(this))
+  }
+
+  Todos.prototype.editTodo = function(id, name) {
+    var todo = {'name': name, 'id': id}
+    var ajax = $.ajax('/todos/' + id, {
+      type: 'PUT',
+      data: JSON.stringify(todo),
+      dataType: 'json',
+      contentType: 'application/json'
+    })
+    ajax.done(this.getTodos.bind(this))
+  }
+
+  Todos.prototype.onGetTodosDone = function(todos) {
+    this.todos = todos
+    this.updateTodosView()
+  }
+
+  Todos.prototype.updateTodosView = function() {
+    var context = {
+      todos: this.todos
+    }
+
+    var todoList = $(this.todoListTemplate(context))
+    this.todoList.replaceWith(todoList)
+    this.todoList = todoList
+  }
+
+  $(document).ready(function() {
+    var app = new Todos()
+  })
+</script>
+</head>
+<body>
+  <div id="main">
+    <h1>To-dos</h1>
+    <input type="text" placeholder="Add todo" id="todo-input"
+    autocomplete="off" autofocus>
+    <ul id="todo-list">
+    </ul>
+    <p class="light">Double-click to edit todos</p>
+  </div>
+
+  <!-- Handlebars templates -->
+  <script id="todo-list-template" type="text/x-handlebars-template">
+    <ul id="todo-list">
+      {{#each todos}}
+      <li data-id="{{ id }}{{ _id }}">
+        <div class="display">
+          <span class="name">{{name}}</span>
+          <div class="delete">
+            <a href="#" class="delete-todo">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <input type="text" style="display: none">
+      </li>
+      {{/each}}
+    </ul>
+  </script>
+</body>
+</html>

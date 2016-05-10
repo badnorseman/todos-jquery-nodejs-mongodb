@@ -33,7 +33,7 @@
 
   div#main {
     display: flex;
-    align-todos: center;
+    align-items: center;
     flex-direction: column;
   }
 
@@ -83,14 +83,10 @@
     this.input.keydown(this.onAddInputKeydown.bind(this))
 
     this.main = $('#main')
-    this.main.on('dblclick', 'li',
-                 this.onEditTodoClicked.bind(this))
-    this.main.on('keydown', 'li input',
-                 this.onEditInputKeydown.bind(this))
-    this.main.on('focusout', 'li input',
-                 this.onEditFocusOut.bind(this))
-    this.main.on('click', 'li .delete-todo',
-                 this.onDeleteTodoClicked.bind(this))
+    this.main.on('dblclick', 'li', this.onEditTodoClicked.bind(this))
+    this.main.on('keydown', 'li input', this.onEditInputKeydown.bind(this))
+    this.main.on('focusout', 'li input', this.onEditFocusOut.bind(this))
+    this.main.on('click', 'li .delete-todo', this.onDeleteTodoClicked.bind(this))
 
     this.getTodos()
   }

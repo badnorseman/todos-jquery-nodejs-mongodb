@@ -109,10 +109,10 @@
     var todo = $(event.target).parents('li')
     var display = todo.children('.display')
     var input = todo.children('input')
-    var name = display.children('.name')
+    var text = display.children('.text')
     input.show()
     input.focus()
-    input.val(name.text())
+    input.val(text.text())
     display.hide()
     event.preventDefault()
   }
@@ -130,12 +130,12 @@
     var id = todo.data('id')
     var display = todo.children('.display')
     var input = todo.children('input')
-    var name = display.children('.name')
+    var text = display.children('.text')
     var value = input.val().trim()
 
     if (value != '') {
       this.editTodo(id, value)
-      name.text(value)
+      text.text(value)
     }
 
     input.hide()
@@ -156,8 +156,8 @@
     ajax.done(this.onGetTodosDone.bind(this));
   }
 
-  Todos.prototype.addTodo = function(name) {
-    var todo = { 'name': name }
+  Todos.prototype.addTodo = function(text) {
+    var todo = { 'text': text }
     var ajax = $.ajax('/todos', {
       type: 'POST',
       data: JSON.stringify(todo),
@@ -175,8 +175,8 @@
     ajax.done(this.getTodos.bind(this))
   }
 
-  Todos.prototype.editTodo = function(id, name) {
-    var todo = {'name': name, 'id': id}
+  Todos.prototype.editTodo = function(id, text) {
+    var todo = {'text': text, 'id': id}
     var ajax = $.ajax('/todos/' + id, {
       type: 'PUT',
       data: JSON.stringify(todo),
@@ -222,7 +222,7 @@
       {{#each todos}}
       <li data-id="{{ id }}{{ _id }}">
         <div class="display">
-          <span class="name">{{name}}</span>
+          <span class="text">{{text}}</span>
           <div class="delete">
             <a href="#" class="delete-todo">
               <i class="fa fa-times"></i>

@@ -7,15 +7,15 @@ chai.use(chaiHttp)
 
 describe('Todos', function() {
   it('should create a todo on post', function(done) {
-    const name = 'Learning nodejs'
+    const text = 'Learning nodejs'
     chai.request(app)
       .post('/todos')
-      .send({ name })
+      .send({ text })
       .end(function(err, res) {
         res.should.have.status(201)
         res.should.be.json
         res.body.id.should.be.a('number')
-        res.body.name.should.equal(name)
+        res.body.text.should.equal(text)
         done()
       })
   })
@@ -26,25 +26,25 @@ describe('Todos', function() {
         res.should.have.status(200)
         res.should.be.json
         res.body[0].id.should.be.a('number')
-        res.body[0].name.should.a('string')
+        res.body[0].text.should.a('string')
         done()
       })
   })
   it('should update a todo on put', function(done) {
-    const name = 'Learning nodejs is fun'
+    const text = 'Learning nodejs is fun'
     chai.request(app)
       .put('/todos/0')
-      .send({ 'id': 0, name })
+      .send({ 'id': 0, text })
       .end(function(err, res) {
         res.should.have.status(200)
         res.should.be.json
         res.body.id.should.be.a('number')
-        res.body.name.should.equal(name)
+        res.body.text.should.equal(text)
         done()
       })
   })
   it('should delete a todo on delete', function(done) {
-    const name = 'Learning nodejs is fun'
+    const text = 'Learning nodejs is fun'
     chai.request(app)
       .delete('/todos/0')
       .send({ 'id': 0 })
@@ -52,7 +52,7 @@ describe('Todos', function() {
         res.should.have.status(200)
         res.should.be.json
         res.body.id.should.be.a('number')
-        res.body.name.should.equal(name)
+        res.body.text.should.equal(text)
         done()
       })
   })

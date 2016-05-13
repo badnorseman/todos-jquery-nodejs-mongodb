@@ -4,9 +4,9 @@ let Storage = function() {
   this.id = 0
 }
 
-Storage.prototype.create = function(name) {
+Storage.prototype.create = function(text) {
   const id = this.id
-  const item = { name, id }
+  const item = { text, id }
   this.items = Object.assign({}, this.items, { [id]: item })
   this.id += 1
   return item
@@ -16,19 +16,19 @@ Storage.prototype.retrieveAll = function() {
   return this.items
 }
 
-Storage.prototype.update = function(id, name) {
-  if (isNaN(id) || !name) return 'not valid'
+Storage.prototype.update = function(id, text) {
+  if (isNaN(id) || !text) return 'not valid'
   let item
   if (this.items[id]) {
     item = this.items[id]
-    item.name = name
+    item.text = text
     this.items = Object.assign({}, this.items,
       Object.keys(this.items).reduce((result, key) => {
         if (key === id) { result[key] = item }
         return result
       }, {}))
   } else {
-    item = this.create(name)
+    item = this.create(text)
   }
   return item
 }

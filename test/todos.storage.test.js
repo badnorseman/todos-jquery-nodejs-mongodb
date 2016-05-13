@@ -1,6 +1,8 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
+const storage = require('../storage')
 const app = require('../index')
+
 const should = chai.should()
 
 chai.use(chaiHttp)

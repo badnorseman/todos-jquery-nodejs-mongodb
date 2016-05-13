@@ -1,6 +1,6 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-const storage = require('../storage')
+const Todos = require('../models/todos.storage')
 const app = require('../index')
 
 const should = chai.should()

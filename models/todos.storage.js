@@ -45,4 +45,6 @@ Storage.prototype.delete = function(id) {
   return item
 }
 
-module.exports = new Storage()
+const Todos = new Storage()
+
+module.exports = Todos

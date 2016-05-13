@@ -1,5 +1,5 @@
 'use strict'
-const Todos = require('./storage')
+const Todos = require('./models/todos.storage')
 
 exports.create = (req, res) => {
   if (!req.body || !req.body.text) return res.sendStatus(400)

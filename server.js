@@ -5,9 +5,9 @@ const bodyParser = require('body-parser')
 const todos = require('./app/todos')
 require('./env')
 
-if process.env.NODE_ENV === 'development'
+if (process.env.NODE_ENV === 'development') {
   mongoose.connect(`mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PSWD}@${process.env.MONGODB_URI}`)
-else {
+} else {
   mongoose.connect(process.env.MONGODB_URI)
 }
 const db = mongoose.connection

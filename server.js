@@ -2,7 +2,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const todos = require('./todos')
+const todos = require('./app/todos')
 require('./env')
 
 const app = express()

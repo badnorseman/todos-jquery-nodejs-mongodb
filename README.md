@@ -1,7 +1,7 @@
-# TodosNodeJS
+# Todos with Node.js
 
 ## Background
-This project was created to learn about Node.js and Express.
+This project was created to learn about Node.js.
 
 ## Getting Started
 

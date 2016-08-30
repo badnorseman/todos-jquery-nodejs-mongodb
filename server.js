@@ -1,9 +1,9 @@
 'use strict'
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const todos = require('./app/todos')
-require('./env')
 
 if (process.env.NODE_ENV === 'development') {
   mongoose.connect(`mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PSWD}@${process.env.MONGODB_URI}`)

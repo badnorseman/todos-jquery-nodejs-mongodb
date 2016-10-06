@@ -21,10 +21,7 @@ app.use(express.static('public'))
 
 app.get('/auth_handler', (req, res) => {
   if (req && req.query && req.query.code) {
-    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
-    console.log('code', req.query.code)
-    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
-    res.status(200).location('with-dipp://').send(req.query.code)
+    res.status(200).redirect('with-dipp://').send(req.query.code)
   }
 })
 

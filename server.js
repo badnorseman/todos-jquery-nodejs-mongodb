@@ -20,17 +20,8 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 app.get('/auth_handler', (req, res) => {
-  if (req) {
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-    console.log(req.query)
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-    res.status(200).send('ok')
-  } else {
-    console.log('--------------------------------------------------------------')
-    console.log('error')
-    console.log(req)
-    console.log('--------------------------------------------------------------')
-    res.status(500).send('error')
+  if (req && req.query) {
+    res.status(200).send(req.query)
   }
 })
 

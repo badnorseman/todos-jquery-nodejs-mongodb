@@ -21,7 +21,9 @@ app.use(express.static('public'))
 
 app.get('/auth_handler', (req, res) => {
   console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
-  console.log('REQUEST', req, '   RESPONSE', res)
+  console.log(req)
+  console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+  console.log(res)
   console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
 })
 

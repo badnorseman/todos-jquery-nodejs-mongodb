@@ -22,9 +22,10 @@ app.use(express.static('public'))
 app.get('/auth_handler', (req, res) => {
   if (res) {
     console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
-    console.log(res.headers)
+    console.log(res)
     console.log(res.query)
     console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
+    res.status(200)
   }
 })
 

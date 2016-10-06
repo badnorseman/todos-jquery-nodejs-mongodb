@@ -20,12 +20,17 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 app.get('/auth_handler', (req, res) => {
-  if (res) {
-    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
-    console.log(res)
-    console.log(res.query)
-    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
-    res.status(200)
+  if (req) {
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+    console.log(req.query)
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+    res.status(200).send('ok')
+  } else {
+    console.log('--------------------------------------------------------------')
+    console.log('error')
+    console.log(req)
+    console.log('--------------------------------------------------------------')
+    res.status(500).send('error')
   }
 })
 

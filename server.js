@@ -20,8 +20,11 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 app.get('/auth_handler', (req, res) => {
-  if (req && req.query) {
-    res.status(200).send(req.query)
+  if (req && req.query && req.query.code) {
+    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
+    console.log('code', req.query.code)
+    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
+    res.status(200).location('with-dipp://').send(req.query.code)
   }
 })
 

@@ -20,9 +20,12 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 app.get('/auth_handler', (req, res) => {
-  console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
-  console.log(res)
-  console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
+  if (res) {
+    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
+    console.log(res.headers)
+    console.log(res.query)
+    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
+  }
 })
 
 app.get('/todos', (req, res) => todos.retrieveAll(req, res))

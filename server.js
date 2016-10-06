@@ -19,6 +19,12 @@ const app = express()
 app.use(bodyParser.json())
 app.use(express.static('public'))
 
+app.get('/auth_handler', (req, res) => {
+  console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
+  console.log('REQUEST', req, '   RESPONSE', res)
+  console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
+})
+
 app.get('/todos', (req, res) => todos.retrieveAll(req, res))
 app.post('/todos', (req, res) => todos.create(req, res))
 app.put('/todos/:id', (req, res) => todos.update(req, res))

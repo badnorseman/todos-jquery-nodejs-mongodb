@@ -19,17 +19,6 @@ const app = express()
 app.use(bodyParser.json())
 app.use(express.static('public'))
 
-app.get('/auth_handler', (req, res) => {
-  if (req && req.query) {
-    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
-    console.log('req', req)
-    console.log('res', res)
-    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
-    const response = 'with-dipp://'+req.query
-    res.redirect(response)
-  }
-})
-
 app.get('/todos', (req, res) => todos.retrieveAll(req, res))
 app.post('/todos', (req, res) => todos.create(req, res))
 app.put('/todos/:id', (req, res) => todos.update(req, res))

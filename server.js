@@ -22,6 +22,7 @@ app.use(express.static('public'))
 app.get('/auth_handler', (req, res) => {
   if (req && req.query) {
     console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
+    console.log('req', req)
     console.log('req.query', req.query)
     console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ')
     const response = 'with-dipp://'+req.query

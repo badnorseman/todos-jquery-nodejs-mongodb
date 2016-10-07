@@ -21,8 +21,8 @@ app.use(express.static('public'))
 
 app.get('/auth_handler', (req, res) => {
   if (req && req.query) {
-    res.set(req.query)
-    res.redirect('with-dipp://')
+    const code = 'with-dipp://'+req.query.code
+    res.redirect(code)
   }
 })
 

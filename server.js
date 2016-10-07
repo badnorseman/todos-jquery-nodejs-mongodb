@@ -20,9 +20,9 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 app.get('/auth_handler', (req, res) => {
-  if (req && req.query && req.query.code) {
-    // res.status(200).redirect('with-dipp://').send(req.query.code)
-    res.status(200).redirect('with-dipp://?'+req.query)
+  if (req && req.query) {
+    res.set(req.query)
+    res.redirect('with-dipp://')
   }
 })
 

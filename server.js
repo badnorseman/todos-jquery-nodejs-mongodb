@@ -1,8 +1,9 @@
 'use strict'
 require('dotenv').config()
+const bodyParser = require('body-parser')
+const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
 const todos = require('./app/todos')
 
 if (process.env.NODE_ENV === 'development') {
@@ -16,6 +17,7 @@ db.on('error', () => console.error('connection error'))
 db.once('open', () => console.error('connection success'))
 
 const app = express()
+app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static('public'))
 
